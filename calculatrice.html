@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculatrice Mobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculatrice {
+            background: #2e2e2e;
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .resultat {
+            height: 60px;
+            background: black;
+            color: #0f0;
+            text-align: right;
+            font-size: 2em;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+
+        .boutons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        .egal {
+            background-color: #28a745;
+        }
+
+        .egal:hover {
+            background-color: #218838;
+        }
+
+        .suppr {
+            background-color: #dc3545;
+        }
+
+        .suppr:hover {
+            background-color: #c82333;
+        }
+
+        .retour {
+            background-color: #ffc107;
+        }
+
+        .retour:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculatrice">
+        <div id="resultat" class="resultat">0</div>
+        <div class="boutons">
+            <button onclick="ajouter('7')">7</button>
+            <button onclick="ajouter('8')">8</button>
+            <button onclick="ajouter('9')">9</button>
+            <button onclick="ajouter('/')">÷</button>
+
+            <button onclick="ajouter('4')">4</button>
+            <button onclick="ajouter('5')">5</button>
+            <button onclick="ajouter('6')">6</button>
+            <button onclick="ajouter('*')">×</button>
+
+            <button onclick="ajouter('1')">1</button>
+            <button onclick="ajouter('2')">2</button>
+            <button onclick="ajouter('3')">3</button>
+            <button onclick="ajouter('-')">−</button>
+
+            <button onclick="ajouter('0')">0</button>
+            <button onclick="ajouter('.')">.</button>
+            <button onclick="calculer()" class="egal">=</button>
+            <button onclick="ajouter('+')">+</button>
+
+            <button onclick="supprimerDernier()" class="retour">←</button>
+            <button onclick="reset()" class="suppr" style="grid-column: span 3;">C</button>
+        </div>
+    </div>
+
+    <script>
+        let resultat = document.getElementById("resultat");
+
+        function ajouter(valeur) {
+            if (resultat.textContent === "0" && valeur !== ".") {
+                resultat.textContent = valeur;
+            } else {
+                resultat.textContent += valeur;
+            }
+        }
+
+        function calculer() {
+            try {
+                resultat.textContent = eval(resultat.textContent);
+            } catch (e) {
+                resultat.textContent = "Erreur";
+            }
+        }
+
+        function reset() {
+            resultat.textContent = "0";
+        }
+
+        function supprimerDernier() {
+            if (resultat.textContent.length > 1) {
+                resultat.textContent = resultat.textContent.slice(0, -1);
+            } else {
+                resultat.textContent = "0";
+            }
+        }
+    </script>
+</body>
+</html>
